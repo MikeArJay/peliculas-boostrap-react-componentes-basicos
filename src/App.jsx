@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import { Pelicula } from './Pelicula';
+import { Menu } from './Menu';
 
 
 
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <>
+    <Menu dataPeliculas={dataPeliculas}/>
       <h1 className="display-1 text-center mb-5 font-weight-bold">Peliculas</h1>
       {selectedPelicula && (
         <Container >
