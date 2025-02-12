@@ -17,6 +17,8 @@ import { Menu } from './Menu';
 function App() {
   const [dataPeliculas, setDataPeliculas] = useState([]);
   const [selectedPelicula, setSelectedPelicula] = useState(null);
+  const [categorias, setCategorias]= useState(null);
+  const [directores, setDirectores]= useState(null);
 
   // funcion obtención datos
   const fetchPeliculas = async () => {
@@ -37,7 +39,26 @@ function App() {
 
   useEffect(() => {
     if (dataPeliculas.length > 0) {
+      // obtener la primera película a mostrar
       setSelectedPelicula(dataPeliculas[0]);
+
+      //obtener un set de directores
+      const newDirectores =[...new Set(dataPeliculas.map(pelicula => pelicula.director))];
+      setDirectores(newDirectores);
+      console.log(newDirectores);
+
+      // obtener un set de Categorías 
+        // como hay array y tambien valores individuales hay que usar flatmap y controlar que los valores individuales se devuelvan tambien como array
+     const newCategorias = [
+      ...new Set(
+        dataPeliculas.flatMap(pelicula => 
+          Array.isArray(pelicula.categoria)? pelicula.categoria : [pelicula.categoria]
+        )
+      )
+    ]
+    console.log(newCategorias);
+    setCategorias(newCategorias);
+
     }
 
   }, [dataPeliculas]);
@@ -45,9 +66,10 @@ function App() {
 
 
 
+
   return (
     <>
-    <Menu dataPeliculas={dataPeliculas}/>
+    <Menu categorias={categorias} directores={directores}/>
       <h1 className="display-1 text-center mb-5 font-weight-bold">Peliculas</h1>
       {selectedPelicula && (
         <Container >
