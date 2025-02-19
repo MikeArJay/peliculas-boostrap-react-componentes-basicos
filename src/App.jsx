@@ -16,8 +16,9 @@ function App() {
   // funcion obtención datos
   const fetchPeliculas = async () => {
     try {
-      const response = await fetch('peliculas.json');
+      const response = await fetch('/peliculas.json');
       const data = await response.json();
+      console.log(data);
       setDataPeliculas(data);
     } catch (error) {
       console.error('Error al cargar las películas:', error);
@@ -30,7 +31,7 @@ function App() {
 
   }, []);
 
-// useEfect para listar directores y categorías
+  // useEfect para listar directores y categorías
   useEffect(() => {
     if (dataPeliculas.length > 0) {
 
@@ -59,36 +60,22 @@ function App() {
     <BrowserRouter>
       <Menu categorias={categorias} directores={directores} />
       <Routes>
-        {/*-------------------Home----------------------*/}
 
-        <Route path="/" element={<ListaPeliculas dataPeliculas={dataPeliculas} />} />
+        <Route 
+        path="/" 
+        element={<ListaPeliculas dataPeliculas={dataPeliculas} />} 
+        />
 
-        {/*---------Listado y filtrado de categorías---------*/}
+        <Route
+          path={'/categoria/:categoriaId'}
+          element={<ListaPeliculas dataPeliculas={dataPeliculas} />}
+        />
 
-        {categorias && (categorias.map(categoria =>
-          <Route key={categoria} path={`/${categoria}`}
-            element={
-              <ListaPeliculas
-                dataPeliculas={dataPeliculas.filter(
-                  pelicula => Array.isArray(pelicula.categoria) ? pelicula.categoria.includes(categoria) : pelicula.categoria == categoria
-                )}
-              />
-            }
-          />
-        ))
-        }
-
-        {/*---------Listado y Filtrado de directores---------*/}
-
-        {directores && (directores.map(director =>
-          <Route key={director} path={`/${director}`}
-            element={
-              <ListaPeliculas dataPeliculas={dataPeliculas.filter(pelicula => pelicula.director == director)}/>
-            }
-          />
-        ))
-
-        }
+        <Route
+          path={'/director/:directorId'}
+          element={<ListaPeliculas dataPeliculas={dataPeliculas} />}
+        />
+      
       </Routes>
 
 

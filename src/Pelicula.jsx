@@ -9,16 +9,16 @@ import Button from 'react-bootstrap/Button';
 
 export const Pelicula = ({ data, setSelectedPelicula }) => {
     const [mas, setMas] = useState(false);
-
+    console.log(data.foto)
     const handleClickMas = () => {
         setMas((prevState) => !prevState);
     }
 
 
     return (
-        <Card >
-            <Card.Img variant="top" src={`./imagenes/${data.foto}`} alt={`Imagen ${data.titulo}`} />
-            <Card.Body>
+        <Card className="h-100 d-flex flex-column">
+            <Card.Img variant="top" src={`/imagenes/${data.foto}`} alt={`Imagen ${data.titulo}`} />
+            <Card.Body className="d-flex flex-column flex-grow-1">
                 <Card.Title align='center'>{data.titulo}</Card.Title>
 
                 <Table borderless className='h-100' striped >
