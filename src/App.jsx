@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ListaPeliculas } from './ListaPeliculas';
 import { Menu } from './Menu';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 
@@ -18,7 +18,6 @@ function App() {
     try {
       const response = await fetch('/peliculas.json');
       const data = await response.json();
-      console.log(data);
       setDataPeliculas(data);
     } catch (error) {
       console.error('Error al cargar las películas:', error);
